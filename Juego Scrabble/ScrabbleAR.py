@@ -50,7 +50,7 @@ while True:
                 NivelFacil.main(values['nombre'])         
             else:
                 if jugada=='NORMAL':
-                    NivelNormal.main()
+                    NivelNormal.main(values['nombre'])
                 else:
                     if jugada=='DIFÍCIL':
                         NivelDificil.main(values['nombre'])
