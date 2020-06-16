@@ -136,7 +136,7 @@ def main(nombre):
         event, values = window.read()
         if event in (None, 'TERMINAR'):
             break
-        if event in atril:
+        if event in atril_k:
             Check_button(event)
             if button_selected:
                 if event == current_button_selected:
