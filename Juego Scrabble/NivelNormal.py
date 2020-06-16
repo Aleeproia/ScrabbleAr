@@ -162,6 +162,18 @@ def main(nombre):
             palabra=''
             key_letras=[]
             coordenadas=[]
+        if event == 'CAMBIAR FICHAS':
+            if (cant_cambios == 3)|(cant_cambios > 3):
+                devolver_l=0
+                sg.popup_auto_close('Ya uso todos sus cambios',auto_close_duration=2,no_titlebar=True,font=("Calibri", 15,'bold'),background_color='black',text_color='#D8C99B',button_color=('#1A2835','#D8973C'))
+                for k in key_letras:
+                    window.find_element(k).update(text=palabra[devolver_l],button_color=('Black','#D8973C'))
+                    devolver_l+=1
+            else:
+                cambiar_letras(window,key_letras,Letras)
+                palabra=''
+                key_letras=[]
+                cant_cambios+=1
 
     window.close()
 
