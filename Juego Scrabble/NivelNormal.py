@@ -124,6 +124,7 @@ def main(nombre):
 
     palabra=''
     coordenadas=[]
+    cant_cambios=0
     key_letras=[]
     
     Check_button = lambda x: window.FindElement(x).Update(button_color=('#D8973C','black'))
