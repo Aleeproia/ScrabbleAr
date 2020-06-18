@@ -32,11 +32,12 @@ def dar_letras(Letras,cant):
         lista_letras.append(l[random.randint(0,len(l)-1)])
     return lista_letras
 
-def cambiar_letras(window,key_letras,Letras): 
+def cambiar_letras(window,key_letras,Letras,BotonAtril): 
+    import PySimpleGUI as sg
     nuevas_letras=dar_letras(Letras,len(key_letras)) 
     cant=0
     for l in nuevas_letras:
-         window.find_element(key_letras[cant]).update(text=l,button_color=('Black','#D8973C'))
+         window.find_element(key_letras[cant]).update(text=l,button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
          cant+=1
 
 def leer_top():
@@ -68,43 +69,66 @@ def main(nombre):
     coor_azul=[]
     coor_naranja=[]
     atril=dar_letras(Letras,7)
-    A1=sg.Button(atril[0],button_color=('Black','#D8973C'),size=(6,3),pad=(0,0),border_width=(3),key='A1')
-    A2=sg.Button(atril[1],button_color=('Black','#D8973C'),size=(6,3),pad=(0,0),border_width=(3),key='A2')
-    A3=sg.Button(atril[2],button_color=('Black','#D8973C'),size=(6,3),pad=(0,0),border_width=(3),key='A3')
-    A4=sg.Button(atril[3],button_color=('Black','#D8973C'),size=(6,3),pad=(0,0),border_width=(3),key='A4')
-    A5=sg.Button(atril[4],button_color=('Black','#D8973C'),size=(6,3),pad=(0,0),border_width=(3),key='A5')
-    A6=sg.Button(atril[5],button_color=('Black','#D8973C'),size=(6,3),pad=(0,0),border_width=(3),key='A6')
-    A7=sg.Button(atril[6],button_color=('Black','#D8973C'),size=(6,3),pad=(0,0),border_width=(3),key='A7')
+    BotonAtril=r'./Boton_Atril.png'
+    BotonAtrilNegro=r'./Boton_Atril_Negro.png'
+    A1=sg.Button(atril[0],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril,border_width=0,key='A1',pad=(6,1))
+    A2=sg.Button(atril[1],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril,border_width=0,key='A2',pad=(6,1))
+    A3=sg.Button(atril[2],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril,border_width=0,key='A3',pad=(6,1))
+    A4=sg.Button(atril[3],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril,border_width=0,key='A4',pad=(6,1))
+    A5=sg.Button(atril[4],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril,border_width=0,key='A5',pad=(6,1))
+    A6=sg.Button(atril[5],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril,border_width=0,key='A6',pad=(6,1))
+    A7=sg.Button(atril[6],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril,border_width=0,key='A7',pad=(6,1))
     atril_k=['A1','A2','A3','A4','A5','A6','A7']
+
+    Letra_M=r'./Letra_M.png'
+    Letra_A=r'./Letra_A.png'
+    Letra_Q=r'./Letra_Q.png'
+    Letra_U=r'./Letra_U.png'
+    Letra_i=r'./Letra_i.png'
+    Letra_N=r'./Letra_N.png'
+    BM1=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_M,border_width=0,pad=(7,1))
+    BM2=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_A,border_width=0,pad=(7,1))
+    BM3=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_Q,border_width=0,pad=(7,1))
+    BM4=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_U,border_width=0,pad=(7,1))
+    BM5=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_i,border_width=0,pad=(7,1))
+    BM6=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_N,border_width=0,pad=(7,1))
+    BM7=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_A,border_width=0,pad=(7,1))
+
     puntaje_j=0
     puntaje_c=0
-
+    TERMINAR=r'./TERMINAR.png'
+    COMPROBAR=r'./COMPROBAR.png'
+    Guardar_Partida=r'./Guardar_Partida.png'
+    Cambiar_Turno=r'./Cambiar_Turno.png'
+    Cambiar_Fichas=r'./Cambiar_Fichas.png'
+    GuardarPartida=' '
+    Terminar='  '
+    CAMBIARFICHAS='   '
+    Comprobar='    '
+    CAMBIARTURNO='     '
     top_10jugadores=leer_top()
 
-    botones_c= lambda name: sg.Button(name,button_color=('#D8973C','black'),size=(6,3),pad=((0),0),border_width=(3))
-    button_j= lambda name : sg.Button(name,button_color=('#12947f','#12947f'),size=(3,1),pad=((0),0),border_width=(2),key=name)
+    Botones_Tablero= lambda name : sg.Button(name,button_color=('#12947f','#12947f'),size=(3,1),pad=((0),0),border_width=(2),key=name)
 
     puntajes=[[sg.Text('PUNTAJE COMPUTADORA',text_color=('#D8C99B'),size=(19,1), font=("Courier New", 12))],
               [sg.Text('{}'.format(str(puntaje_c)),size=(16,5),font=("Helvetica"),key=('puntaje_c'))],
               [sg.Text('PUNTAJE {}'.format(nombre.upper()),text_color=('#D8C99B'),font=("Courier New",12))],
-              [sg.Text('{}'.format(str(puntaje_j)),size=(16,5),font=("Helvetica"),key=('puntaje_j'))],
-              [sg.Button('CAMBIAR TURNO',size=(15,1),pad=(25,20),button_color=('#A4243B','#D8973C'),border_width=(5),font=("Fixedsys",16))],
-              [sg.Button('CAMBIAR FICHAS',size=(15,1),pad=(25,1),button_color=('#A4243B','#D8973C'),border_width=(5),font=("Fixedsys",16))]]
+              [sg.Text('{}'.format(str(puntaje_j)),size=(16,5),font=("Helvetica"),key=('puntaje_j'))]]
 
-    
-    top10=[[sg.Text('TOP 10 JUGADORES',text_color=('#D8C99B'),size=(16,1),font=("Courier New", 20))],
-           [sg.Listbox(top_10jugadores,pad=(28,5),size=(30,12), no_scrollbar=True, text_color=('#D8C99B'))],
-           [sg.Button('GUARDAR PARTIDA',size=(15,1),pad=(67,20),button_color=('#A4243B','#D8973C'),border_width=(5),font=("Fixedsys",16))],
-           [sg.Button('TERMINAR',size=(15,1),pad=(67,1),button_color=('#A4243B','#D8973C'),border_width=(5),font=("Fixedsys",16))]]
+    top10=[[sg.Text('TOP 10 JUGADORES',text_color=('#D8C99B'),justification='center',size=(16,1),font=("Courier New", 15))],
+           [sg.Listbox(top_10jugadores,pad=(5,5),size=(28,12), no_scrollbar=True, text_color=('#D8C99B'))],
+           [sg.Button(button_text=GuardarPartida,button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Guardar_Partida,border_width=0)],
+           [sg.Button(button_text=Terminar,size=(15,1),pad=(42,1), button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=TERMINAR,border_width=0)],
+           [sg.Text('TIEMPO',text_color=('#D8C99B'),justification='center',size=(16,1),font=("Courier New", 15))]]
 
-    layout = [[sg.Text('COMPUTADORA     ',text_color='#D8C99B',font=("Courier New", 20))]+[botones_c('?') for i in atril],
-             [sg.Column(puntajes),sg.Frame(layout=[[button_j((col,fila))for col in range(15)] for fila in range(15)],border_width=(20),title='',pad=(0,7), relief=sg.RELIEF_SUNKEN,background_color=('#D8973C')),sg.Column(top10)],
-             [sg.Text('{}         '.format(nombre.upper()),text_color='#D8C99B',font=("Courier New", 20))]+[A1,A2,A3,A4,A5,A6,A7],
-             [sg.Button('COMPROBAR',size=(15,1),button_color=('#A4243B','#D8973C'),border_width=(5),font=("Fixedsys",16))]]
+    layout = [[sg.Image(r'./AleScrabble3.png',pad=((1),1))]+[(BM1),(BM2),(BM3),(BM4),(BM5),(BM6),(BM7)]+[sg.Image(r'./AleScrabble3.png',pad=((1),1))],
+             [sg.Column(puntajes),sg.Frame(layout=[[Botones_Tablero((col,fila))for col in range(15)] for fila in range(15)],border_width=(20),title='',pad=(0,7), relief=sg.RELIEF_SUNKEN,background_color=('#D8973C')),sg.Column(top10)],
+             [sg.Text('{}     '.format(nombre.upper()),text_color='#D8C99B',font=("Courier New", 20))]+[A1,A2,A3,A4,A5,A6,A7],
+             [sg.Text('                                               ')]+[sg.Button(button_text=Comprobar,pad=(1,8),button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=COMPROBAR,border_width=0)]+[sg.Button(button_text=CAMBIARTURNO, button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Cambiar_Turno,border_width=0)]+[sg.Button(button_text=CAMBIARFICHAS,button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Cambiar_Fichas,border_width=0)]]
 
    
     
-    window = sg.Window('ScrabbleAr',grab_anywhere=True,no_titlebar=True).Layout(layout).Finalize()
+    window = sg.Window('ScrabbleAr',no_titlebar=True).Layout(layout).Finalize()
 
 
     for i in range(15):
@@ -123,55 +147,47 @@ def main(nombre):
                 coor_naranja.append((i,j))
 
     palabra=''
-    coordenadas=[]
     cant_cambios=0
+    coordenadas=[]
     key_letras=[]
     
-    Check_button = lambda x: window.FindElement(x).Update(button_color=('#D8973C','black'))
-    Uncheck_button = lambda x: window.FindElement(x).Update(button_color=('Black','#D8973C'))
-    current_Check_button = ''
-    button_selected = False
-    current_button_selected = ''
-    
+    Check_button = lambda x: window.FindElement(x).Update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+    Uncheck_button = lambda x: window.FindElement(x).Update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
+  
     while True:
         event, values = window.read()
-        if event in (None, 'TERMINAR'):
+        print (event)
+        if event in (None,Terminar):
             break
         if event in atril_k:
             Check_button(event)
-            if button_selected:
-                if event == current_button_selected:
-                 Uncheck_button(event)
-                 button_selected = False
-                 current_button_selected = ''
-                else:
-                 Check_button(event)
-                 button_selected = True
-                 current_button_selected = event
             letra_key=event
             palabra+=window.find_element(letra_key).get_text()
             key_letras.append(event)
             event,values=window.read()
             coordenadas.append(event)
-            window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8973C'))
-            window[letra_key].update(button_color=('black','black'))
-        if event == 'COMPROBAR':
+            if event not in atril_k:
+                window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+            else:
+                Uncheck_button(event)
+        if event == Comprobar:
             print(palabra,coordenadas)
             puntaje_j+=comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste)
             window.find_element('puntaje_j').update(str(puntaje_j))
-            cambiar_letras(window,key_letras,Letras)
+            cambiar_letras(window,key_letras,Letras,BotonAtril)
             palabra=''
             key_letras=[]
             coordenadas=[]
-        if event == 'CAMBIAR FICHAS':
+        if event == CAMBIARFICHAS:
             if (cant_cambios == 3)|(cant_cambios > 3):
                 devolver_l=0
                 sg.popup_auto_close('Ya uso todos sus cambios',auto_close_duration=2,no_titlebar=True,font=("Calibri", 15,'bold'),background_color='black',text_color='#D8C99B',button_color=('#1A2835','#D8973C'))
                 for k in key_letras:
-                    window.find_element(k).update(text=palabra[devolver_l],button_color=('Black','#D8973C'))
+                    window.find_element(k).update(text=palabra[devolver_l],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
                     devolver_l+=1
             else:
-                cambiar_letras(window,key_letras,Letras)
+                cambiar_letras(window,key_letras,Letras,BotonAtril)
                 palabra=''
                 key_letras=[]
                 cant_cambios+=1
