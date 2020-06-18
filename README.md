@@ -1,2 +1,0 @@
-# ScrabbleAr
-Juego Scrabble
