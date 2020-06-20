@@ -3,6 +3,8 @@ import json
 import NivelFacil
 import NivelNormal
 import NivelDificil
+import os 
+
 
 sg.theme('DarkBlue')
 
@@ -11,40 +13,52 @@ Instrucciones=Instrucciones.read()
 
 reglas=open('reglas.txt', 'r', encoding='utf8')
 reglas=reglas.read()
+ReglasJuego=r'./Reglas_De_Juego.png'
+imagen_Salir=r'./Salir.png'
+imagen_Facil=r'./Facil.png'
+imagen_Normal=r'./Normal.png'
+imagen_Dificil=r'./Dificil.png'
+imagen_Juego=r'./Jugar.png'
+Salir=' '
+Reglas_Juego='  '
+Facil='   '
+Normal='    '
+Dificil='     '
+Jugar='      '
 
 boton_facil=lambda name:sg.popup_no_buttons(name,no_titlebar=True,text_color='#71B8A8',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='Black')
 boton_normal=lambda name:sg.popup_no_buttons(name,no_titlebar=True,text_color='#71B8A8',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='Black')
 boton_dificil=lambda name:sg.popup_no_buttons(name,no_titlebar=True,text_color='#71B8A8',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='Black')
 
-layout=[[sg.Button('Salir',size=(5,1),border_width=(2),button_color=('#A4243B','#D8973C'),font=("Fixedsys",10,"bold"),pad=((2), 5))],     
-        #[sg.Image(r'C:\Users\Ale\Pictures\AleScrabble500x278Recortado.png',pad=((27),1))],
-        [sg.Text('¡Bienvenidos a ScrabbleAR!', size=(30, 1), justification='center', font=('Helvetica', 22))],   
-        [sg.Text(Instrucciones,text_color=('#D8C99B'),justification=('center'   ))],
-        [sg.Button('REGLAS DE JUEGO',size=(15,1),pad=((200),1),button_color=('#A4243B','#D8973C'),border_width=(8),font=("Fixedsys",16))],
+layout=[[sg.Text('                                                                                                                       ')]+[sg.Button(button_text=Salir,pad=(1,1),button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=imagen_Salir,border_width=0)],     
+        [sg.Image(r'./AleScrabble500x278Recortado.png',pad=((27),1))],
+        #[sg.Text('¡Bienvenidos a ScrabbleAR!', size=(30, 1), justification='center', font=('Helvetica', 22))],   
+        [sg.Text(Instrucciones,text_color=('#D8C99B'),justification=('center'))],
+        [sg.Button(button_text=Reglas_Juego,pad=(201,8),button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=ReglasJuego,border_width=0)],
         [sg.Text('Nombre de jugador',text_color=('#D8C99B'),size=(17, 1), font=("Courier New", 20)),sg.Input(key='nombre',background_color='Black',size=(29,1))],
-        [sg.Text('Dificultad',text_color=('#D8C99B'),size=(17, 1), font=("Courier New", 20)),sg.Button('FÁCIL',button_color=('#A4243B','#D8973C'),border_width=(4),font=(("Fixedsys",16))),sg.Button('NORMAL',button_color=('#A4243B','#D8973C'),border_width=(4),font=(("Fixedsys",16))),sg.Button('DIFÍCIL',button_color=('#A4243B','#D8973C'),border_width=(4),font=(("Fixedsys",16)))],    
-        [sg.Button('JUGAR',size=(15,1),font=(("Fixedsys",25,"bold")),pad=((81), 30),button_color=('#A4243B','#D8973C'),border_width=(10))]]
+        [sg.Text('Dificultad',text_color=('#D8C99B'),size=(17, 1), font=("Courier New", 20))]+[sg.Button(button_text=Facil,pad=(1,7),button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=imagen_Facil,border_width=0)]+[sg.Button(button_text=Normal,pad=(1,7),button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=imagen_Normal,border_width=0)]+[sg.Button(button_text=Dificil,pad=(1,7),button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=imagen_Dificil,border_width=0)],          
+        [sg.Button(button_text=Jugar,pad=(119,15),button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=imagen_Juego,border_width=0)]]
         
-window= sg.Window('Juego ScrabbleAR',layout,no_titlebar=True,icon=True,grab_anywhere=True,)
+window= sg.Window('Juego ScrabbleAR',layout,icon=True,grab_anywhere=True,border_depth=(5),no_titlebar=True)
 
 while True:
     event, values = window.read()
-    if event in (None, 'Salir'):
+    if event in (None, Salir):
          break
     if event in ('_'):
          window.Minimize()    
-    if event == 'REGLAS DE JUEGO':
+    if event == Reglas_Juego:
         sg.popup_scrolled(reglas,title=' ',text_color='#BFA558',background_color='Black',font=("Calibri", 14),no_titlebar=True,size=(100,20))
-    if event == 'FÁCIL':
+    if event == Facil:
         boton_facil('¡JUGABILIDAD FÁCIL CARGADA!')
         jugada='FÁCIL'
-    if event == 'NORMAL':
+    if event == Normal:
         boton_normal('¡JUGABILIDAD NORMAL CARGADA!')
         jugada='NORMAL'
-    if event == 'DIFÍCIL':
+    if event == Dificil:
         boton_dificil('¡Jugabilidad dificil cargada!')
         jugada='DIFÍCIL'
-    if event == 'JUGAR':
+    if event == Jugar:
         try:
             if jugada == 'FÁCIL':
                 NivelFacil.main(values['nombre'])         
