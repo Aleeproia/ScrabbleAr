@@ -1,1 +1,8 @@
-Aca van las reglas
+ScrabbleAR: reglas del juego
+A continuación se describe la operatoria y reglas de ScrabbleAR.
+- Al ingresar al juego, se debera ingresar el nomre del jugador en la pantalla de incio y la dificultad con la que desea jugar el usuario
+- El juego contará con una cierta cantidad de fichas de cada letra en su bolsa de fichas (letras) para repartir entre los jugadores.
+- Cuando comienza, se “reparten” siete (7) fichas a cada participante de forma aleatoria. El jugador tendrá asignado un “atril o estante” para almacenar sus fichas.
+- El jugador debe formar una palabra usando tres (3) o más letras, colocándolas horizontalmente (las letras ubicadas de izquierda a derecha) o verticalmente (en orden descendente)   sobre el tablero.
+- En las reglas generales, para simplificar la estrategia del juego, las palabras no deben cruzarse, pero si pueden quedar “pegadas” tanto horizontal como verticalmente.
+- El tablero tambien cuenta con casilleros con acciones especificas según su dificultad,ya sea agregarle valor extra a una palabra o letra, o en su defecto restarle puntos a las     mismas
