@@ -1,8 +1,15 @@
 ScrabbleAR: reglas del juego
 A continuación se describe la operatoria y reglas de ScrabbleAR.
-- Al ingresar al juego, se debera ingresar el nomre del jugador en la pantalla de incio y la dificultad con la que desea jugar el usuario
+-Al ingresar al juego, se debera ingresar el nombre del jugador en la pantalla de inicio y la dificultad con la que desea jugar el usuario.
+-El jugador debera configurar los puntajes, de 1 a 10 por ficha, y la cantidad de fichas, de 1 a 15 por cada ficha, ademas de 
+configurar el tiempo que desee jugar.
 - El juego contará con una cierta cantidad de fichas de cada letra en su bolsa de fichas (letras) para repartir entre los jugadores.
-- Cuando comienza, se “reparten” siete (7) fichas a cada participante de forma aleatoria. El jugador tendrá asignado un “atril o estante” para almacenar sus fichas.
-- El jugador debe formar una palabra usando tres (3) o más letras, colocándolas horizontalmente (las letras ubicadas de izquierda a derecha) o verticalmente (en orden descendente)   sobre el tablero.
-- En las reglas generales, para simplificar la estrategia del juego, las palabras no deben cruzarse, pero si pueden quedar “pegadas” tanto horizontal como verticalmente.
-- El tablero tambien cuenta con casilleros con acciones especificas según su dificultad,ya sea agregarle valor extra a una palabra o letra, o en su defecto restarle puntos a las     mismas
+- Cuando comienza, se “reparten” siete (7) fichas a cada participante de forma aleatoria. El
+jugador tendrá asignado un “atril o estante” para almacenar sus fichas.
+- El jugador debe formar una palabra usando tres (3) o más letras, colocándolas
+horizontalmente (las letras ubicadas de izquierda a derecha) o verticalmente (en orden
+descendente) sobre el tablero.
+- En las reglas generales, para simplificar la estrategia del juego, las palabras no deben
+cruzarse, pero si pueden quedar “pegadas” tanto horizontal como verticalmente.(editado)
+- El tablero tambien cuenta con casilleros con acciones especificas según su dificultad,ya sea agregarle valor extra a una palabra o letra, o en su defecto restarle puntos a las mismas
+- El juego terminara cuando se termine el tiempo, ya no haya fichas suficientes para repartir o si el jugador apreta el boton terminar.
