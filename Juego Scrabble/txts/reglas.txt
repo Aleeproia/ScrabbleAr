@@ -10,6 +10,6 @@ jugador tendrá asignado un “atril o estante” para almacenar sus fichas.
 horizontalmente (las letras ubicadas de izquierda a derecha) o verticalmente (en orden
 descendente) sobre el tablero.
 - En las reglas generales, para simplificar la estrategia del juego, las palabras no deben
-cruzarse, pero si pueden quedar “pegadas” tanto horizontal como verticalmente.(editado)
+cruzarse, pero si pueden quedar “pegadas” tanto horizontal como verticalmente.
 - El tablero tambien cuenta con casilleros con acciones especificas según su dificultad,ya sea agregarle valor extra a una palabra o letra, o en su defecto restarle puntos a las mismas
 - El juego terminara cuando se termine el tiempo, ya no haya fichas suficientes para repartir o si el jugador apreta el boton terminar.
