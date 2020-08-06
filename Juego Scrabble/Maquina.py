@@ -56,7 +56,10 @@ def buscar_espacio(window,palabra,Tablero,Letras, nivel): #busca un lugar valido
             else:
                 coordenadas_c=[]
                 encontro=False
-       except NameError:
+       except NameError: #si ocurre este error es porque la maquina encontro posiciones donde no tiene permitido poner una letra
+         coordenadas_c=[]
+         encontro= False
+       except TypeError: #este error ocurre cuando la maquina quiere poner letras fuera del tablero
          coordenadas_c=[]
          encontro= False
     return coordenadas_c
@@ -74,8 +77,8 @@ def generar_palabras(atril,nivel,eleccion):
                     "VSI", "VSN", "VSP", "VSS"],
             'sust': ['NN']}
 
-    if nivel == 'Facil':
-        opcion=tipo_pal
+    if nivel == 'Facil': #se configura el tipo de palabra valido segun el nivel que haya sido elegido
+        opcion=tipo_pal 
     elif nivel == 'Normal':
         opcion={'adj':tipo_pal['adj'],'verb':tipo_pal['verb']}
     elif nivel == 'Dificil':
@@ -85,43 +88,24 @@ def generar_palabras(atril,nivel,eleccion):
             opcion={'sust':tipo_pal['sust']}
         else:
             opcion={'adj':tipo_pal['adj']}
-    def clasifico(palabra, clasificacion):
-        '''
-        Función que recibe una palabra y verifica que sea adjetivo o verbo
-        :param palabra: es un string
-        :param clasificacion: un diccionario que tiene las clasficaciones que busco
-        :return: True si está dentro de la clasificación, False caso contrario
-        '''
+    def clasifico(palabra, clasificacion): #se clasifican las palabras segun el tipo de palabra pedido, si no esta en el tipo pedido la palabra no se agrega
         s = (pattern.es.parse(palabra)).split()
-        # print(s)
         for cada in s:
             for c in cada:
                 for tipo in clasificacion:
-                    # print("la clasificacion que se busca es {}".format(tipo))
                     if c[1] in clasificacion[tipo]:
                         return True
 
 
-    def es_pal(pal):
-        '''
-        Verifica si es una palabra válida
-        :param pal: un string
-        :return: True si es, False caso contrario
-        '''
+    def es_pal(pal): #verifica que sea una palabra valida.
         if pal in pattern.es.lexicon:
-            # print(pal + " en lexicon ")
             if pal in pattern.es.spelling and len(pal)>2:
-                # print(pal + " en spelling ")
+
                 return True
         return False
 
 
-    def armo_palabra(atril):
-        '''
-        Armo las posibles combinaciones y permutaciones con una lista de letras recibidas
-        :param letras_palabras: lista de letras
-        :return: un conjunto con las palabras armadas
-        '''
+    def armo_palabra(atril): #recibe el atril de la maquina y con esas letras arma posibles combinaciones
         letras = ''
         for letra in atril:
             letras += letra.lower()
@@ -129,19 +113,13 @@ def generar_palabras(atril,nivel,eleccion):
         for i in range(2, len(letras) + 1):
             palabras.update((map("".join, permutations(letras, i))))
         return (palabras)
-
-    #Ejemplo de uso con una lista de letras dada
     lista_palabras = armo_palabra(atril)
-    # clasifico con pattern
-    #lista palabras válidas dad una clasificación
-    palabras_adj_verb = []
 
-    #todas las palabras válidas posibles
-
+    palabras_tipos= []
     palabras_validas = []
     for pal in lista_palabras:
         if es_pal(pal):
             palabras_validas.append(pal)
             if clasifico(pal, opcion):
-                palabras_adj_verb.append(pal)
+                palabras_tipos.append(pal) #agrego las palabras con los tipos de palabras validos
     return palabras_validas
