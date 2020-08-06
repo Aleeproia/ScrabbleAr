@@ -171,3 +171,29 @@ def movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril):
     window.find_element(key_letras[-1]).update(text=ultima_letra,button_color=('#D8C99B', sg.theme_background_color()),image_filename=BotonAtril)
     key_letras.remove(key_letras[-1])
     return palabra
+def ver_puntajeFinal(puntaje_c,puntaje_j,atril_m,atril_j,window,Letras,nombre):
+    for l in atril_m:
+        puntaje_c=puntaje_c - Letras[l.upper()][0]
+    for l in atril_j:
+        letra=window.find_element(l).get_text()
+        puntaje_j= puntaje_j- Letras[letra.upper()][0]
+    if puntaje_j > puntaje_c:
+        sg.popup_no_buttons('{} ha ganado'.format(nombre),no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
+    elif puntaje_c > puntaje_j:
+        sg.popup_no_buttons('La Maquina ha ganado',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
+    else:
+        sg.popup_no_buttons('Empataron',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
+
+def guardar_partida(nombre,nivel,Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,eleccion,tiempo,tiempo_guardado,tiempo_comienzo):
+    Partida_Guardada={'Nombre':nombre,'Nivel':nivel,'Eleccion':eleccion,'Tablero':Tablero_Guardado,'Letras':Letras,'Atril Jugador':Atril_jugador,
+                       'Letras Totales':letras_totales, 'Puntaje Jugador':puntaje_j, 'Puntaje Maquina':puntaje_c,'Atril Maquina':atril_m,'Tiempo':tiempo,'Tiempo_Guardado':tiempo_guardado, 'Tiempo Comienzo': tiempo_comienzo}
+    import json
+    Guardar='./txts/Partida Guardada.txt'
+    with open (Guardar,'w') as f:
+     json.dump(Partida_Guardada,f)
+
+def contar_letras(Letras):
+    letras_totales=0
+    for l in Letras.keys():
+        letras_totales+=Letras[l][1]
+    return letras_totales
