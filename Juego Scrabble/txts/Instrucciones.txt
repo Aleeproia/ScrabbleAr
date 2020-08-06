@@ -1,5 +1,4 @@
 Scrabble es un juego de mesa en el cual cada jugador intenta ganar más puntos mediante la
 construcción de palabras sobre un tablero de 15x15 casillas. Las palabras pueden formarse,
-siempre y cuandoaparezcan en el diccionario estándar, de forma horizontal o verticalmente 
-y se pueden cruzar.
+siempre y cuando aparezcan en el diccionario estándar, de forma horizontal o verticalmente. Se recomienda leer las reglas.
 
