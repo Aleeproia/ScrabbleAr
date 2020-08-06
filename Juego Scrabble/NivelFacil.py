@@ -1,17 +1,16 @@
 from Funciones import *
 from Maquina import *
-def main(nombre,tiempo):
+def main(nombre,tiempo, Letras):
     import  PySimpleGUI as sg
     import time
     import random
     sg.theme('DarkBlue')
 
-    #El primer valor de la lista es PUNTAJE ,el segundo valor CANTIDAD
-    Letras={'A':[1,11],'B':[3,3],'C':[2,4],'D':[2,4],'E':[1,11],'F':[4,2],'G':[2,2],
-            'H':[4,2],'I':[1,6],'J':[6,2],'K':[8,1],'L':[1,4],'M':[3,3],'N':[1,6],'O':[1,8],'P':[3,2],
-            'Q':[8,1],'R':[1,4],'S':[1,7],'T':[1,4],'U':[1,6],'V':[4,2],'W':[8,2],'X':[8,2],'Y':[4,2],'Z':[10,1]}
-    letras_totales=97
-
+    letras_totales=contar_letras(Letras)
+    lista_puntajes=[]
+    for l in Letras.keys():
+        lista_puntajes.append(l+': '+ str(Letras[l][0]))
+    
     #-------------------------config atril jugador--------------------------------
     atril=dar_letras(Letras,7)
     letras_totales=letras_totales-7
@@ -85,7 +84,7 @@ def main(nombre,tiempo):
               [sg.Text('PUNTAJE {}'.format(nombre.upper()),text_color=('#D8C99B'),font=("Courier New",12))],
               [sg.Text('{}'.format(str(puntaje_j)),size=(16,5),font=("Helvetica"),key=('puntaje_j'))],
               [sg.Text('VALOR POR LETRA',text_color=('#D8C99B'),size=(16,1),font=("Courier New", 15))],
-              [sg.Image(r'./Images/PuntosPorLetra.png',pad=((1),1))]]
+              [sg.Listbox(lista_puntajes,pad=(5,5),size=(15,10), no_scrollbar=True, text_color=('#D8C99B'))]]
 
     top10=[[sg.Text('TOP 10 JUGADORES',text_color=('#D8C99B'),justification='center',size=(16,1),font=("Courier New", 15))],
            [sg.Listbox(top_10jugadores,pad=(5,5),size=(28,12), no_scrollbar=True, text_color=('#D8C99B'))],
@@ -225,7 +224,8 @@ def main(nombre,tiempo):
                             Tablero_Guardado.append(window.find_element(t).get_text())
                         for l in atril_k:
                             Atril_jugador.append(window.find_element(l).get_text())
-                        guardar_partida(nombre,'Facil',Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,'',tiempo_jugada)
+                        tiempo_guardado=int(round(time.time() * 100))
+                        guardar_partida(nombre,'Facil',Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,'',tiempo,tiempo_guardado,start_time)
                         sg.popup_no_buttons('Partida Guardada',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
                 if turno == 0:        #turno maquina  
                     window.find_element('turno').update('MAQUINA')  
@@ -250,6 +250,3 @@ def main(nombre,tiempo):
           ver_puntajeFinal(puntaje_c,puntaje_j,atril_m,atril_k,window,Letras,nombre)
           cargar_jugador(nombre,puntaje_j,'Facil')
     window.close()
-
-if __name__ == '__main__':
-    main('jugador','05:00')
