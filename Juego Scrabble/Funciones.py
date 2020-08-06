@@ -124,7 +124,7 @@ def comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_az
                      puntaje+=Letras[palabra[l]][0]
     return puntaje
 
-def cargar_jugador(nombre,puntaje,nivel):
+def cargar_jugador(nombre,puntaje,nivel): #carga el top 10 de jugadores
     import json
     archivo='./txts/top.txt'
     with open(archivo,'r') as f:
@@ -135,7 +135,7 @@ def cargar_jugador(nombre,puntaje,nivel):
         json.dump(dicc_top10,f)
 
 def palabra_incorrecta(window,palabra,key_letras,coor_azul,coor_celeste,coor_naranja,coor_rojos,coordenadas,nivel,BotonAtril):
-    devolver_l=0
+    devolver_l=0  #funcion para devolver las letras al atril y dejar el tablero como estaba antes de ingresar esas letras
     if nivel == 'Facil':
         rojo='P+5'
         celeste='P-2'
@@ -165,7 +165,7 @@ def palabra_incorrecta(window,palabra,key_letras,coor_azul,coor_celeste,coor_nar
          window.find_element(coordenadas[devolver_l]).update(button_color=('#12947f','#12947f'),text=coordenadas[devolver_l])
      devolver_l+=1 
 
-def movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril):
+def movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril): #si el jugador pone en diagonal o no sigue a las anteriores letras se llama a esta funcion
     sg.popup_no_buttons('Movimiento no permitido',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
     palabra=palabra.strip(ultima_letra)
     window.find_element(key_letras[-1]).update(text=ultima_letra,button_color=('#D8C99B', sg.theme_background_color()),image_filename=BotonAtril)
@@ -184,9 +184,10 @@ def ver_puntajeFinal(puntaje_c,puntaje_j,atril_m,atril_j,window,Letras,nombre):
     else:
         sg.popup_no_buttons('Empataron',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
 
-def guardar_partida(nombre,nivel,Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,eleccion,tiempo,tiempo_guardado,tiempo_comienzo):
+def guardar_partida(nombre,nivel,Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,eleccion,tiempo,tiempo_guardado,tiempo_comienzo,cant_cambios):
     Partida_Guardada={'Nombre':nombre,'Nivel':nivel,'Eleccion':eleccion,'Tablero':Tablero_Guardado,'Letras':Letras,'Atril Jugador':Atril_jugador,
-                       'Letras Totales':letras_totales, 'Puntaje Jugador':puntaje_j, 'Puntaje Maquina':puntaje_c,'Atril Maquina':atril_m,'Tiempo':tiempo,'Tiempo_Guardado':tiempo_guardado, 'Tiempo Comienzo': tiempo_comienzo}
+                       'Letras Totales':letras_totales, 'Puntaje Jugador':puntaje_j, 'Puntaje Maquina':puntaje_c,'Atril Maquina':atril_m,'Tiempo':tiempo,'Tiempo_Guardado':tiempo_guardado, 'Tiempo Comienzo': tiempo_comienzo,
+                       'Cantidad Cambios':cant_cambios}
     import json
     Guardar='./txts/Partida Guardada.txt'
     with open (Guardar,'w') as f:
