@@ -153,16 +153,16 @@ def main(nombre,tiempo, Letras):
                                 window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
                             elif event in atril_k:
                                 Uncheck_button(event)
-                            else:
-                                if event in Tablero and len(palabra)>1 and (window.find_element(event).get_text() not in Letras.keys()): #desde la linea 113 a la  149 comprueba de que no se ponga letras en
-                                    coordenada=coordenadas[len(palabra)-2]#cualquier parte del tablero exceptuando si es la primer letra de la palabra
+                            else:#codigo que comprueba que las letras siguientes a la primera no sean en diagonal y que una vez puesta la segunda letra sigan el mismo orden (horizontal o vertical)
+                                if event in Tablero and len(palabra)>1 and (window.find_element(event).get_text() not in Letras.keys()): 
+                                    coordenada=coordenadas[len(palabra)-2]
                                     if (event[0] == (coordenada[0]+1))and(event[1] == coordenada[1]) and len(palabra)==2 and (window.find_element(event).get_text() not in Letras.keys()):
                                         coor_y=True #pone en true para verificar que la palabra es en vertical
                                         coordenadas.append(event)
                                         window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
                                         window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
                                     elif (event[0]==coordenada[0]) and(event[1] == (coordenada[1]+1)) and len(palabra)==2 and (window.find_element(event).get_text() not in Letras.keys()):
-                                        coor_x=True
+                                        coor_x=True #pone en true para verificar que la palabra es en horizontal
                                         coordenadas.append(event)
                                         window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
                                         window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
@@ -183,7 +183,7 @@ def main(nombre,tiempo, Letras):
                                                 window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
                                             else:
                                                 palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
-                    if event == Comprobar:
+                    if event == Comprobar: #se comprueba si la palabra es valida, si lo es se actualiza el puntaje si no lo es se avisa y se devuelven las letras al atril
                         if len(palabra)>2 and comprobar_palabra(palabra,'Facil'):
                             puntaje_j+=comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Facil')
                             window.find_element('puntaje_j').update(str(puntaje_j))
@@ -243,7 +243,7 @@ def main(nombre,tiempo, Letras):
                         letras_totales=letras_totales-len(palabra_c)
                         turno=1
                     else:
-                        cant_letras=random.randrange(1,7)
+                        cant_letras=random.randrange(1,7)#si la lista devuelta por la maquina es vacia se cambian letras al azar del atril porque sino no puede funcionar
                         letras_cambio=atril_m[0:cant_letras]
                         cambiar_letras(window,letras_cambio,Letras,BotonAtril,'Cambio Fichas','Computadora',atril_m)
           sg.popup_no_buttons('Juego Terminado',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
