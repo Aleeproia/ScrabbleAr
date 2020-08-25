@@ -57,13 +57,37 @@ def dar_letras(Letras,cant):
         lista_letras.append(letra)
     return lista_letras
 
-def cambiar_letras(window,key_letras,Letras,BotonAtril): 
-    import PySimpleGUI as sg
-    nuevas_letras=dar_letras(Letras,len(key_letras)) 
-    cant=0
-    for l in nuevas_letras:
-         window.find_element(key_letras[cant]).update(text=l,button_color=('#D8C99B', sg.theme_background_color()),image_filename=BotonAtril)
-         cant+=1
+def cambiar_letras(window,palabra,Letras,BotonAtril,tipo_cambio, usuario,atril): 
+    if usuario == 'Jugador':
+        import PySimpleGUI as sg
+        nuevas_letras=dar_letras(Letras,len(palabra)) 
+        cant=0
+        if tipo_cambio == 'Cambio Fichas':
+            for k in palabra:
+                l=window.find_element(k).get_text()
+                Letras[l][1]=Letras[l][1]+1
+            for l in nuevas_letras:
+             window.find_element(palabra[cant]).update(text=l,button_color=('#D8C99B', sg.theme_background_color()),image_filename=BotonAtril)
+             cant+=1
+        elif tipo_cambio == 'Palabra Correcta':
+            for l in nuevas_letras:
+             window.find_element(palabra[cant]).update(text=l,button_color=('#D8C99B', sg.theme_background_color()),image_filename=BotonAtril)
+             cant+=1
+    elif usuario == 'Computadora':
+        nuevas_letras=dar_letras(Letras,len(palabra)) 
+        cant=0
+        if tipo_cambio == 'Palabra Correcta':
+            for l in palabra:
+                if l in atril:
+                    atril.remove(l)
+            for l in nuevas_letras:
+                atril.append(l)
+        elif tipo_cambio =='Cambio Fichas':
+            letras_v=[]
+            for l in palabra:
+             atril.remove(l)
+             Letras[l][1]=Letras[l][1]+1
+            atril+=nuevas_letras
 
 def leer_top():
     import json
@@ -99,12 +123,12 @@ def comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_az
             for l in range(0,len(palabra)):
              if coordenadas[l] in coor_azul:
                  valor_letra=Letras[palabra[l]][0]*3
-                 puntake+=valor_letra
+                 puntaje+=valor_letra
              if coordenadas[l] in coor_celeste:
                  puntaje=puntaje-2
              if coordenadas[l] in coor_rojos:
                  puntaje=puntaje+5
-             if coordeandas[l] in coor_naranja:
+             if coordenadas[l] in coor_naranja:
                  puntaje=puntaje-3
              else:
                  puntaje+=Letras[palabra[l]][0]
@@ -135,7 +159,7 @@ def cargar_jugador(nombre,puntaje,nivel): #carga el top 10 de jugadores
         json.dump(dicc_top10,f)
 
 def palabra_incorrecta(window,palabra,key_letras,coor_azul,coor_celeste,coor_naranja,coor_rojos,coordenadas,nivel,BotonAtril):
-    devolver_l=0  #funcion para devolver las letras al atril y dejar el tablero como estaba antes de ingresar esas letras
+    devolver_l=0   #funcion para devolver las letras al atril y dejar el tablero como estaba antes de ingresar esas letras
     if nivel == 'Facil':
         rojo='P+5'
         celeste='P-2'
@@ -171,6 +195,7 @@ def movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril): #s
     window.find_element(key_letras[-1]).update(text=ultima_letra,button_color=('#D8C99B', sg.theme_background_color()),image_filename=BotonAtril)
     key_letras.remove(key_letras[-1])
     return palabra
+
 def ver_puntajeFinal(puntaje_c,puntaje_j,atril_m,atril_j,window,Letras,nombre):
     for l in atril_m:
         puntaje_c=puntaje_c - Letras[l.upper()][0]
@@ -187,7 +212,7 @@ def ver_puntajeFinal(puntaje_c,puntaje_j,atril_m,atril_j,window,Letras,nombre):
 def guardar_partida(nombre,nivel,Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,eleccion,tiempo,tiempo_guardado,tiempo_comienzo,cant_cambios):
     Partida_Guardada={'Nombre':nombre,'Nivel':nivel,'Eleccion':eleccion,'Tablero':Tablero_Guardado,'Letras':Letras,'Atril Jugador':Atril_jugador,
                        'Letras Totales':letras_totales, 'Puntaje Jugador':puntaje_j, 'Puntaje Maquina':puntaje_c,'Atril Maquina':atril_m,'Tiempo':tiempo,'Tiempo_Guardado':tiempo_guardado, 'Tiempo Comienzo': tiempo_comienzo,
-                       'Cantidad Cambios':cant_cambios}
+                        'Cantidad Cambios':cant_cambios}
     import json
     Guardar='./txts/Partida Guardada.txt'
     with open (Guardar,'w') as f:
