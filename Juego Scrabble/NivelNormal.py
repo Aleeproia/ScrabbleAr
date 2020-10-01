@@ -143,78 +143,79 @@ def main(nombre,tiempo,Letras):
                 if turno== 1:
                     window.find_element('turno').update('{}'.format(nombre.upper()))
                     if event in atril_k:
-                        Check_button(event)
-                        letra_key=event
-                        palabra+=window.find_element(letra_key).get_text()
-                        ultima_letra=window.find_element(letra_key).get_text()
-                        key_letras.append(event)
-                        event,values=window.read()
-                        if event in Tablero and len(palabra)==1 and (window.find_element(event).get_text() not in Letras.keys()):
-                            coordenadas.append(event)
-                            window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                            window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                        elif event in atril_k:
-                            Uncheck_button(event)
-                        else:
-                         if event in Tablero and len(palabra)>1:
-                                coordenada=coordenadas[len(palabra)-2]
-                                if (event[0] == (coordenada[0]+1))and(event[1] == coordenada[1]) and len(palabra)==2:
-                                    coor_y=True #pone en true para verificar que la palabra es en vertical
-                                    coordenadas.append(event)
-                                    window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                    window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                elif (event[0]==coordenada[0]) and(event[1] == (coordenada[1]+1)) and len(palabra)==2:
-                                    coor_x=True
-                                    coordenadas.append(event)
-                                    window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                    window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                elif (event[0]==(coordenada[0]+1)) and(event[1] == (coordenada[1]+1)) and len(palabra)==2:
-                                    palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
-                                else:
-                                    if coor_y:
-                                        if (event[1] == coordenada[1]):
-                                            coordenadas.append(event)
-                                            window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                            window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                        else:
-                                            palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
-                                    elif coor_x:
-                                        if(event[0]==coordenada[0]):
-                                            coordenadas.append(event)
-                                            window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                            window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                        else:
-                                            palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
-                    if event == Comprobar:
+                            Check_button(event)
+                            letra_key=event
+                            palabra+=window.find_element(letra_key).get_text()
+                            ultima_letra=window.find_element(letra_key).get_text()
+                            key_letras.append(event)
+                            event,values=window.read()
+                            if event in Tablero and len(palabra)==1 and (window.find_element(event).get_text() not in Letras.keys()):
+                                coordenadas.append(event)
+                                window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'))
+                                window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                            elif event in atril_k:
+                                Uncheck_button(event)
+                            else: #codigo que comprueba que las letras siguientes a la primera no sean en diagonal y que una vez puesta la segunda letra sigan el mismo orden (horizontal o vertical)
+                                if event in Tablero and len(palabra)>1 and (window.find_element(event).get_text() not in Letras.keys()): 
+                                    coordenada=coordenadas[len(palabra)-2]
+                                    if (event[0] == (coordenada[0]+1))and(event[1] == coordenada[1]) and len(palabra)==2 and (window.find_element(event).get_text() not in Letras.keys()):
+                                        coor_y=True #pone en true para verificar que la palabra es en vertical
+                                        coordenadas.append(event)
+                                        window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                                        window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                                    elif (event[0]==coordenada[0]) and(event[1] == (coordenada[1]+1)) and len(palabra)==2 and (window.find_element(event).get_text() not in Letras.keys()):
+                                        coor_x=True #pone en true para verificar que la palabra es en horizontal
+                                        coordenadas.append(event)
+                                        window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                                        window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                                    elif (event[0]==(coordenada[0]+1)) and(event[1] == (coordenada[1]+1)) and len(palabra)==2 and (window.find_element(event).get_text() in Letras.keys()):
+                                        palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
+                                    else:
+                                        if coor_y:
+                                            if (event[1] == coordenada[1]) and (window.find_element(event).get_text() not in Letras.keys()):
+                                                coordenadas.append(event)
+                                                window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                                                window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                                            else:
+                                                palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
+                                        elif coor_x:
+                                            if(event[0]==coordenada[0]) and (window.find_element(event).get_text() not in Letras.keys()):
+                                                coordenadas.append(event)
+                                                window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                                                window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                                            else:
+                                                palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
+                    if event == Comprobar: #se comprueba si la palabra es valida, si lo es se actualiza el puntaje si no lo es se avisa y se devuelven las letras al atril
                         if len(palabra)>2 and comprobar_palabra(palabra,'Normal'):
                             puntaje_j+=comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Normal')
                             window.find_element('puntaje_j').update(str(puntaje_j))
-                            cambiar_letras(window,key_letras,Letras,BotonAtril,'Palabra Correcta')
+                            cambiar_letras(window,key_letras,Letras,BotonAtril,'Palabra Correcta','Jugador',atril)
                             letras_totales=letras_totales-len(palabra)
+                            window['puntaje_j'].update(str(puntaje_j))
+                            cambiar_letras(window,key_letras,Letras,BotonAtril,'Palabra Correcta','Jugador',atril)
+                            palabra=''
+                            key_letras=[]
+                            coordenadas=[]
+                            coor_y=False
+                            coor_x=False
+                            turno=0
                         else:
                             sg.popup_no_buttons('Palabra no permitida',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
                             palabra_incorrecta(window,palabra,key_letras,coor_azul,coor_celeste,coor_naranja,coor_rojos,coordenadas,'Normal',BotonAtril)     
-                        palabra=''
-                        key_letras=[]
-                        coordenadas=[]
-                        coor_y=False
-                        coor_x=False
-                        puntaje_palabra=comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Normal')
-                        puntaje_j+=puntaje_palabra
-                        window['puntaje_j'].update(str(puntaje_j))
                     if event == CAMBIARFICHAS:
-                        if (cant_cambios == 5)|(cant_cambios > 5):
-                            devolver_l=0
-                            sg.popup_no_buttons('Ya utilizo todos sus cambios',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
-                            for k in key_letras:
-                                window.find_element(k).update(text=palabra[devolver_l],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
-                                devolver_l+=1
-                        else:
-                            cambiar_letras(window,key_letras,Letras,BotonAtril,'Cambio Fichas')
-                            palabra=''
-                            key_letras=[]
-                            cant_cambios+=1
-                    if event == CAMBIATURNO:
+                            if (cant_cambios == 5)|(cant_cambios > 5):
+                                devolver_l=0
+                                sg.popup_no_buttons('Ya utilizo todos sus cambios',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
+                                for k in key_letras:
+                                    window.find_element(k).update(text=palabra[devolver_l],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
+                                    devolver_l+=1
+                            else:
+                                cambiar_letras(window,key_letras,Letras,BotonAtril,'Cambio Fichas','Jugador',atril)
+                                palabra=''
+                                key_letras=[]
+                                cant_cambios+=1
+                                turno=0
+                    if event == CAMBIARTURNO:
                         turno=0
                     if event== GuardarPartida:
                         Tablero_Guardado=[]
@@ -228,7 +229,7 @@ def main(nombre,tiempo,Letras):
                         sg.popup_no_buttons('Partida Guardada',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
                 if turno == 0:        #turno maquina  
                     window.find_element('turno').update('MAQUINA')  
-                    lista_palabras=generar_palabras(atril_m)
+                    lista_palabras=generar_palabras(atril_m,'Normal','')
                     cant=0
                     if lista_palabras:
                         palabra_c=lista_palabras[random.randrange(0,len(lista_palabras))]
@@ -239,9 +240,10 @@ def main(nombre,tiempo,Letras):
                         puntaje_c+=comprobar_puntaje(palabra_c.upper(),coordenadas_c,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Normal')
                         window['puntaje_c'].update(str(puntaje_c))
                         cambiar_letras(window,palabra_c.upper(),Letras,BotonAtril,'Palabra Correcta','Computadora',atril_m)
+                        letras_totales=letras_totales-len(palabra_c)
                         turno=1
                     else:
-                        cant_letras=random.randrange(1,7)
+                        cant_letras=random.randrange(1,7) #si la lista devuelta por la maquina es vacia se cambian letras al azar del atril porque sino no puede funcionar
                         letras_cambio=atril_m[0:cant_letras]
                         cambiar_letras(window,letras_cambio,Letras,BotonAtril,'Cambio Fichas','Computadora',atril_m)
           if tiempo_juego==False or letras_totales < 7:
