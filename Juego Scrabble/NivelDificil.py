@@ -1,74 +1,5 @@
 from Funciones import *
 from Maquina import *
-def main(nombre,tiempo,eleccion):
-    import  PySimpleGUI as sg
-    import random
-    import time 
-    print(eleccion)
-    sg.theme('DarkBlue')
-
-    #El primer valor de la lista es PUNTAJE ,el segundo valor CANTIDAD
-    Letras={'A':[1,11],'B':[3,3],'C':[2,4],'D':[2,4],'E':[1,11],'F':[4,2],'G':[2,2],
-            'H':[4,2],'I':[1,6],'J':[6,2],'K':[8,1],'L':[1,4],'M':[3,3],'N':[1,6],'O':[1,8],'P':[3,2],
-            'Q':[8,1],'R':[1,4],'S':[1,7],'T':[1,4],'U':[1,6],'V':[4,2],'W':[8,2],'X':[8,2],'Y':[4,2],'Z':[10,1]}
-    letras_totales=97
-
-    #-------------------------config atril jugador--------------------------------
-    atril=dar_letras(Letras,7)
-    letras_totales=letras_totales-7
-    BotonAtril=r'./Images/Boton_Atril.png'
-    A1=sg.Button(atril[0],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A1',pad=(6,1))
-    A2=sg.Button(atril[1],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A2',pad=(6,1))
-    A3=sg.Button(atril[2],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A3',pad=(6,1))
-    A4=sg.Button(atril[3],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A4',pad=(6,1))
-    A5=sg.Button(atril[4],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A5',pad=(6,1))
-    A6=sg.Button(atril[5],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A6',pad=(6,1))
-    A7=sg.Button(atril[6],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A7',pad=(6,1))
-    atril_k=['A1','A2','A3','A4','A5','A6','A7']
-
-
-    #--------------------------config atril maquina---------------------------------
-    atril_m=dar_letras(Letras,7)
-    letras_totales=letras_totales-7
-    BotonAtrilNegro=r'./Images/Boton_Atril_Negro.png'
-    Letra_M=r'./Images/Letra_M.png'
-    Letra_A=r'./Images/Letra_A.png'
-    Letra_Q=r'./Images/Letra_Q.png'
-    Letra_U=r'./Images/Letra_U.png'
-    Letra_i=r'./Images/Letra_i.png'
-    Letra_N=r'./Images/Letra_N.png'
-    BM1=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_M,border_width=0,pad=(7,1))
-    BM2=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_A,border_width=0,pad=(7,1))
-    BM3=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_Q,border_width=0,pad=(7,1))
-    BM4=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_U,border_width=0,pad=(7,1))
-    BM5=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_i,border_width=0,pad=(7,1))
-    BM6=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_N,border_width=0,pad=(7,1))
-    BM7=sg.Button(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=Letra_A,border_width=0,pad=(7,1))
-
-
-    #--------------------------config general/declaracion de var---------------------------------
-    puntaje_j=0
-    puntaje_c=0    
-    cant_cambios=0
-    turno=random.randrange(0,1)
-    palabra='' 
-    coordenadas=[]
-    key_letras=[]
-    coor_rojos=[]
-    coor_celeste=[] 
-    coor_azul=[]
-    coor_naranja=[]
-    Tablero=[] 
-    tiempo_juego=True
-    coor_y=False
-    coor_x=False
-    Check_button = lambda x: window.FindElement(x).Update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-    Uncheck_button = lambda x: window.FindElement(x).Update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
-    top_10jugadores=leer_top()
-
-    #--------------------------config layouts---------------------------------
-        #declaro botonesfrom Funciones import *
-from Maquina import *
 def main(nombre,tiempo,eleccion,Letras):
     import  PySimpleGUI as sg
     import random
@@ -90,8 +21,6 @@ def main(nombre,tiempo,eleccion,Letras):
     A6=sg.Button(atril[5],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A6',pad=(6,1))
     A7=sg.Button(atril[6],button_color=('#D8C99B', sg.theme_background_color()),font=("Courier New",20),image_filename=BotonAtril,border_width=0,key='A7',pad=(6,1))
     atril_k=['A1','A2','A3','A4','A5','A6','A7']
-
-
     #--------------------------config atril maquina---------------------------------
     atril_m=dar_letras(Letras,7)
     letras_totales=letras_totales-7
@@ -207,113 +136,113 @@ def main(nombre,tiempo,eleccion,Letras):
                  tiempo_juego=False
                 if event in (None,Terminar):
                  tiempo_juego=False
-                 if turno== 1:
-                        if event in atril_k:
-                            Check_button(event)
-                            letra_key=event
-                            palabra+=window.find_element(letra_key).get_text()
-                            ultima_letra=window.find_element(letra_key).get_text()
-                            key_letras.append(event)
-                            event,values=window.read()
-                            if event in Tablero and len(palabra)==1 and (window.find_element(event).get_text() not in Letras.keys()):
-                                coordenadas.append(event)
-                                window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                            elif event in atril_k:
-                                Uncheck_button(event)
-                            else:
-                                if event in Tablero and len(palabra)>1: 
-                                    coordenada=coordenadas[len(palabra)-2]
-                                    if (event[0] == (coordenada[0]+1))and(event[1] == coordenada[1]) and len(palabra)==2:
-                                        coor_y=True #pone en true para verificar que la palabra es en vertical
-                                        coordenadas.append(event)
-                                        window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                        window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                    elif (event[0]==coordenada[0]) and(event[1] == (coordenada[1]+1)) and len(palabra)==2:
-                                        coor_x=True
-                                        coordenadas.append(event)
-                                        window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                        window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                    elif (event[0]==(coordenada[0]+1)) and(event[1] == (coordenada[1]+1)) and len(palabra)==2:
-                                        palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
-                                    else:
-                                        if coor_y:
-                                            if (event[1] == coordenada[1]):
-                                                coordenadas.append(event)
-                                                window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                                window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                            else:
-                                                palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
-                                        elif coor_x:
-                                            if(event[0]==coordenada[0]):
-                                                coordenadas.append(event)
-                                                window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
-                                                window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
-                                            else:
-                                                palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
-                        if event == Comprobar:
-                            if len(palabra)>2 and comprobar_palabra(palabra,'Dificil',eleccion):
-                                puntaje_j+=comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Dificil')
-                                window.find_element('puntaje_j').update(str(puntaje_j))
-                                cambiar_letras(window,key_letras,Letras,BotonAtril)
-                                letras_totales=letras_totales-len(palabra)
-                            else:
-                                sg.popup_no_buttons('Palabra no permitida',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
-                                palabra_incorrecta(window,palabra,key_letras,coor_azul,coor_celeste,coor_naranja,coor_rojos,coordenadas,'Dificil',BotonAtril)     
-                            puntaje_palabra=comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Dificil')
-                            puntaje_j+=puntaje_palabra
-                            window['puntaje_j'].update(str(puntaje_j))
-                            cambiar_letras(window,key_letras,Letras,BotonAtril)
-                            palabra=''
-                            key_letras=[]
-                            coordenadas=[]
-                            coor_y=False
-                            coor_x=False
-                        if event == CAMBIARFICHAS:
-                            if (cant_cambios == 3)|(cant_cambios > 3):
-                                devolver_l=0
-                                sg.popup_no_buttons('Ya utilizo todos sus cambios',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
-                                for k in key_letras:
-                                    window.find_element(k).update(text=palabra[devolver_l],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
-                                    devolver_l+=1
-                            else:
-                                cambiar_letras(window,key_letras,Letras,BotonAtril)
-                                palabra=''
-                                key_letras=[]
-                                cant_cambios+=1
-                        if event == CAMBIARTURNO:
-                         turno=0
-                        if event == GuardarPartida:
-                         Tablero_Guardado=[]
-                         Atril_jugador=[]
-                         for t in Tablero:
-                             Tablero_Guardado.append(window.find_element(t).get_text())
-                         for l in atril_k:
-                             Atril_jugador.append(window.find_element(l).get_text())
-                         tiempo_guardado=int(round(time.time() * 100))
-                         guardar_partida(nombre,'Dificil',Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,eleccion,tiempo,tiempo_guardado,start_time,cant_cambios)
-                         sg.popup_no_buttons('Partida Guardada',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
-                 if turno == 0:        #turno maquina  
-                     window.find_element('turno').update('MAQUINA')  
-                     lista_palabras=generar_palabras(atril_m,'Dificil','')
-                     cant=0
-                     if lista_palabras:
-                         palabra_c=lista_palabras[random.randrange(0,len(lista_palabras))]
-                         coordenadas_c=buscar_espacio(window,palabra_c,Tablero,Letras,'Dificil')
-                         for l in palabra_c:
-                             window[coordenadas_c[cant]].update(l.upper(), button_color=('Black','#D8C99B'))
-                             cant+=1
-                         puntaje_c+=comprobar_puntaje(palabra_c.upper(),coordenadas_c,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Dificil')
-                         window['puntaje_c'].update(str(puntaje_c))
-                         cambiar_letras(window,palabra_c.upper(),Letras,BotonAtril,'Palabra Correcta','Computadora',atril_m)
-                         letras_totales=letras_totales-len(palabra_c)
-                         turno=1
+                if turno== 1:
+                 window.find_element('turno').update('{}'.format(nombre.upper()))
+                 if event in atril_k:
+                     Check_button(event)
+                     letra_key=event
+                     palabra+=window.find_element(letra_key).get_text()
+                     ultima_letra=window.find_element(letra_key).get_text()
+                     key_letras.append(event)
+                     event,values=window.read()
+                     if event in Tablero and len(palabra)==1 and (window.find_element(event).get_text() not in Letras.keys()):
+                         coordenadas.append(event)
+                         window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                         window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                     elif event in atril_k:
+                         Uncheck_button(event)
                      else:
-                         cant_letras=random.randrange(1,7)
-                         letras_cambio=atril_m[0:cant_letras]
-                         cambiar_letras(window,letras_cambio,Letras,BotonAtril,'Cambio Fichas','Computadora',atril_m)
+                          if event in Tablero and len(palabra)>1 and (window.find_element(event).get_text() not in Letras.keys()): 
+                             coordenada=coordenadas[len(palabra)-2]
+                          if (event[0] == (coordenada[0]+1))and(event[1] == coordenada[1]) and len(palabra)==2 and (window.find_element(event).get_text() not in Letras.keys()):
+                             coor_y=True #pone en true para verificar que la palabra es en vertical
+                             coordenadas.append(event)
+                             window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                             window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                          elif (event[0]==coordenada[0]) and(event[1] == (coordenada[1]+1)) and len(palabra)==2 and (window.find_element(event).get_text() not in Letras.keys()):
+                             coor_x=True
+                             coordenadas.append(event)
+                             window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                             window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                          elif (event[0]==(coordenada[0]+1)) and(event[1] == (coordenada[1]+1)) and len(palabra)==2 and (window.find_element(event).get_text() in Letras.keys()):
+                             palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
+                          else:
+                             if coor_y:
+                                 if (event[1] == coordenada[1]):
+                                     coordenadas.append(event)
+                                     window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                                     window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                                 else:
+                                     palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
+                             elif coor_x:
+                                 if(event[0]==coordenada[0]):
+                                     coordenadas.append(event)
+                                     window[event].update(window.find_element(letra_key).get_text(), button_color=('Black','#D8C99B'),)
+                                     window[letra_key].update(button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtrilNegro)
+                                 else:
+                                     palabra=movimiento_incorrecto(window,palabra,ultima_letra,key_letras,BotonAtril)
+                 if event == Comprobar:
+                     if len(palabra)>2 and comprobar_palabra(palabra,'Dificil',eleccion):
+                         puntaje_j+=comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Dificil')
+                         window.find_element('puntaje_j').update(str(puntaje_j))
+                         cambiar_letras(window,key_letras,Letras,BotonAtril)
+                         letras_totales=letras_totales-len(palabra)
+                         window['puntaje_j'].update(str(puntaje_j))
+                         cambiar_letras(window,key_letras,Letras,BotonAtril)
+                         palabra=''
+                         key_letras=[]
+                         coordenadas=[]
+                         coor_y=False
+                         coor_x=False
+                     else:
+                         sg.popup_no_buttons('Palabra no permitida',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
+                         palabra_incorrecta(window,palabra,key_letras,coor_azul,coor_celeste,coor_naranja,coor_rojos,coordenadas,'Dificil',BotonAtril)     
+                 if event == CAMBIARFICHAS:
+                     if (cant_cambios == 3)|(cant_cambios > 3):
+                         devolver_l=0
+                         sg.popup_no_buttons('Ya utilizo todos sus cambios',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
+                         for k in key_letras:
+                             window.find_element(k).update(text=palabra[devolver_l],button_color=(sg.theme_background_color(), sg.theme_background_color()),image_filename=BotonAtril)
+                             devolver_l+=1
+                     else:
+                         cambiar_letras(window,key_letras,Letras,BotonAtril, 'Cambio Fichas','Jugador',atril)
+                         palabra=''
+                         key_letras=[]
+                         cant_cambios+=1
+                 if event == CAMBIARTURNO:
+                     turno=0
+                 if event == GuardarPartida:
+                     Tablero_Guardado=[]
+                     Atril_jugador=[]
+                     for t in Tablero:
+                         Tablero_Guardado.append(window.find_element(t).get_text())
+                     for l in atril_k:
+                         Atril_jugador.append(window.find_element(l).get_text())
+                     tiempo_guardado=int(round(time.time() * 100))
+                     guardar_partida(nombre,'Dificil',Tablero_Guardado,Atril_jugador,atril_m,Letras,letras_totales,puntaje_c,puntaje_j,eleccion,tiempo,tiempo_guardado,start_time,cant_cambios)
+                     sg.popup_no_buttons('Partida Guardada',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
+                if turno == 0:        #turno maquina  
+                 window.find_element('turno').update('MAQUINA')  
+                 lista_palabras=generar_palabras(atril_m,'Dificil',eleccion)
+                 cant=0
+                 if lista_palabras:
+                     palabra_c=lista_palabras[random.randrange(0,len(lista_palabras))]
+                     coordenadas_c=buscar_espacio(window,palabra_c,Tablero,Letras,'Dificil')
+                     for l in palabra_c:
+                         window[coordenadas_c[cant]].update(l.upper(), button_color=('Black','#D8C99B'))
+                         cant+=1
+                     puntaje_c+=comprobar_puntaje(palabra_c.upper(),coordenadas_c,Letras,coor_rojos,coor_naranja,coor_azul,coor_celeste,'Dificil')
+                     window['puntaje_c'].update(str(puntaje_c))
+                     cambiar_letras(window,palabra_c.upper(),Letras,BotonAtril,'Palabra Correcta','Computadora',atril_m)
+                     letras_totales=letras_totales-len(palabra_c)
+                     turno=1
+                 else:
+                     cant_letras=random.randrange(1,7)
+                     letras_cambio=atril_m[0:cant_letras]
+                     cambiar_letras(window,letras_cambio,Letras,BotonAtril,'Cambio Fichas','Computadora',atril_m)
           if tiempo_juego==False or letras_totales < 7:
                 sg.popup_no_buttons('Juego Terminado',no_titlebar=True,text_color='#D8C99B',auto_close=True,auto_close_duration=1,font=("Courier New", 20,'bold'),background_color='#1a2835')
                 ver_puntajeFinal(puntaje_c,puntaje_j,atril_m,atril_k,window,Letras,nombre)
                 cargar_jugador(nombre,puntaje_j,'Dificil')
     window.close()
+
