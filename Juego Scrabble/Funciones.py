@@ -10,35 +10,39 @@ def clasificar(palabra):
              if (not(palabra.lower() in lexicon) and not(palabra.upper() in lexicon) and not(palabra.capitalize() in lexicon)):
                  return ('No existe esa palabra')
              else:
-                 return tag(palabra, tokenize=True, encoding='utf-8') #sustantivos
+                 return tag(palabra, tokenize=True, encoding='utf-8',tagset = 'UNIVERSAL') #sustantivos
          else:
-             return tag(palabra, tokenize=True, encoding='utf-8') #adjetivos
+             return tag(palabra, tokenize=True, encoding='utf-8',tagset = 'UNIVERSAL') #adjetivos
      else:
-         return tag(palabra, tokenize=True, encoding='utf-8') #verbos
+         return tag(palabra, tokenize=True, encoding='utf-8',tagset = 'UNIVERSAL') #verbos
 def comprobar_palabra(palabra,nivel,Eleccion=''):
+    tipo_pal = {'adj': ["AO", "JJ", "AQ", "DI", "DT"],
+                'verb': ["VAG", "VBG", "VAI", "VAN", "MD", "VAS", "VMG", "VMI", "VB", "VMM", "VMN", "VMP", "VBN", "VMS", "VSG",
+                "VSI", "VSN", "VSP", "VSS"],
+                'sust': ['NN', 'NCS', 'NC']}
     clasificacion = clasificar(palabra)
     if clasificacion == 'No existe esa palabra':
      return False
     elif nivel == 'Facil':
-         if clasificacion[0][1]=='NN': #pregunta si es un sustantivo
+         if clasificacion[0][1] in tipo_pal['sust']: #pregunta si es un sustantivo
              return True
-         elif clasificacion[0][1]== 'JJ': # pregunta si es un adjetivo
+         elif clasificacion[0][1] in tipo_pal['adj']: # pregunta si es un adjetivo
              return True
-         elif clasificacion[0][1]== 'VB': #pregunta si es un verbo
+         elif clasificacion[0][1] in tipo_pal['verb']: #pregunta si es un verbo
              return True
          else:
              return False #si la palabra no es ninguno de esos da falso ya que pattern devuelve otros tipos de palabra
     elif nivel=='Normal': 
-         if clasificacion[0][1]=='NN':
+         if clasificacion[0][1] in tipo_pal['sust']:
              return False
-         elif clasificacion[0][1]== 'JJ':
+         elif clasificacion[0][1] in tipo_pal['adj']:
              return True
-         elif clasificacion[0][1]== 'VB':
+         elif clasificacion[0][1] in tipo_pal['verb']:
              return True
          else:
              return False
     elif nivel == 'Dificil':
-        if clasificacion[0][1]==Eleccion:
+        if clasificacion[0][1] in tipo_pal[Eleccion]:
             return True
         else:
             return False
@@ -106,46 +110,44 @@ def comprobar_puntaje(palabra,coordenadas,Letras,coor_rojos,coor_naranja,coor_az
     valor_letra=0 
     if nivel == 'Normal':
         for l in range(0,len(palabra)):
-         if coordenadas[l] in coor_azul:
+            if coordenadas[l] in coor_azul:
              valor_letra=Letras[palabra[l]][0]*2
              puntaje+=valor_letra
-         if coordenadas[l] in coor_celeste:
+            if coordenadas[l] in coor_celeste:
              puntaje=puntaje-2
-         if coordenadas[l] in coor_naranja:
-             puntaje=puntaje-5
-         if coordenadas[l] in coor_rojos:
+            if coordenadas[l] in coor_rojos:
              valor_letra=Letras[palabra[l]][0]*2
              puntaje+=valor_letra
-         else:
+            if coordenadas[l] in coor_naranja:
+             puntaje=puntaje-5
+            else:
              puntaje+=Letras[palabra[l]][0]
-    else:
-        if nivel == 'Facil':
-            for l in range(0,len(palabra)):
-             if coordenadas[l] in coor_azul:
-                 valor_letra=Letras[palabra[l]][0]*3
-                 puntaje+=valor_letra
-             if coordenadas[l] in coor_celeste:
-                 puntaje=puntaje-2
-             if coordenadas[l] in coor_rojos:
-                 puntaje=puntaje+5
-             if coordenadas[l] in coor_naranja:
-                 puntaje=puntaje-3
-             else:
-                 puntaje+=Letras[palabra[l]][0]
-        else:
-            if nivel == 'Dificil':
-                for l in range(0,len(palabra)):
-                 if coordenadas[l] in coor_azul:
-                     valor_letra=Letras[palabra[l]][0]
-                     puntaje=puntaje - valor_letra
-                 if coordenadas[l] in coor_rojo:
-                     puntaje=puntaje-5
-                 if coordenadas[l] in coor_naranja:
-                     puntaje=puntaje+4
-                 if coordenadas[l] in coor_celeste:
-                     puntaje=puntaje+2
-                 else:
-                     puntaje+=Letras[palabra[l]][0]
+    elif nivel == 'Facil':
+        for l in range(0,len(palabra)):
+            if coordenadas[l] in coor_azul:
+             valor_letra=Letras[palabra[l]][0]*3
+             puntaje+=valor_letra
+            if coordenadas[l] in coor_celeste:
+             puntaje=puntaje-2
+            if coordenadas[l] in coor_rojos:
+             puntaje=puntaje+5
+            if coordenadas[l] in coor_naranja:
+             puntaje=puntaje-3
+            else:
+             puntaje+=Letras[palabra[l]][0]
+    elif nivel == 'Dificil':
+        for l in range(0,len(palabra)):
+            if coordenadas[l] in coor_azul:
+             valor_letra=Letras[palabra[l]][0]
+             puntaje=puntaje- valor_letra
+            if coordenadas[l] in coor_celeste:
+             puntaje=puntaje+2
+            if coordenadas[l] in coor_rojos:
+             puntaje=puntaje-5
+            if coordenadas[l] in coor_naranja:
+             puntaje=puntaje+4
+            else:
+             puntaje+=Letras[palabra[l]][0]
     return puntaje
 
 def cargar_jugador(nombre,puntaje,nivel): #carga el top 10 de jugadores
